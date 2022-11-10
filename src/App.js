@@ -53,10 +53,10 @@ function App() {
 
   const renderArtists = () => {
     return artists.map(artist => (
-        <div key={artist.id}>
+        <StyledList key={artist.id}>
             {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
             {artist.name}
-        </div>
+        </StyledList>
     ));
   };
 
@@ -70,16 +70,20 @@ function App() {
         </Routes>
       </Router>
       <StyledArtists>
+        <StyledSearch>
         {token ? 
           <form onSubmit={searchArtists}>
             <input type="text" onChange={e => setSearchKey(e.target.value)}/>
             <button type={"submit"}>Search</button>
           </form>
         : <h2>Please login</h2>}
+        </StyledSearch>
+        <StyledLogged>
         {!token ? 
           <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login To Spotify</a>
           : <button onClick={logout}>Logout</button>
         }
+        </StyledLogged>
         {renderArtists()}
       </StyledArtists>
     </div>
@@ -92,6 +96,18 @@ const StyledArtists = styled.div`
       justify-content: space-between;
       margin-left: 2rem;
       margin-right: 2rem;
+`;
+
+const StyledSearch = styled.div`
+  padding-bottom: 1rem;
+`;
+
+const StyledLogged = styled.div`
+  padding-bottom: 1rem;
+`;
+
+const StyledList = styled.div`
+  padding-bottom: 2rem;
 `;
 
 export default App;

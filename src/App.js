@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import Music from './components/Music';
 import axios from 'axios';
+import styled from 'styled-components';
 
 function App() {
   const CLIENT_ID = "1ee7ac924b8f42b6a147e00f47b0a1e7";
@@ -68,21 +69,29 @@ function App() {
           <Route path="/music" element={<Music/>} />
         </Routes>
       </Router>
-      {!token ? 
-      <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login To Spotify</a>
-      : <button onClick={logout}>Logout</button>
-      }
-
-      {token ? 
-        <form onSubmit={searchArtists}>
-          <input type="text" onChange={e => setSearchKey(e.target.value)}/>
-          <button type={"submit"}>Search</button>
-        </form>
-      : <h2>Please login</h2>}
-
-      {renderArtists()}
+      <StyledArtists>
+        {token ? 
+          <form onSubmit={searchArtists}>
+            <input type="text" onChange={e => setSearchKey(e.target.value)}/>
+            <button type={"submit"}>Search</button>
+          </form>
+        : <h2>Please login</h2>}
+        {!token ? 
+          <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login To Spotify</a>
+          : <button onClick={logout}>Logout</button>
+        }
+        {renderArtists()}
+      </StyledArtists>
     </div>
   );
 }
+
+const StyledArtists = styled.div`
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-left: 2rem;
+      margin-right: 2rem;
+`;
 
 export default App;

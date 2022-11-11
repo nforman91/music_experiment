@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav';
 import Home from './components/Home';
 import Music from './components/Music';
+import MusicPlayer from './components/MusicPlayer';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -61,14 +62,15 @@ function App() {
   };
 
   return (
-    <div>
+    <StyledApp>
       <Router>
-        <Nav/>
+        {/* <Nav/> */}
         <Routes>
           <Route exact path="/" element={<Home/>} />
           <Route path="/music" element={<Music/>} />
         </Routes>
       </Router>
+      <MusicPlayer/>
       <StyledArtists>
         <StyledSearch>
         {token ? 
@@ -86,9 +88,13 @@ function App() {
         </StyledLogged>
         {renderArtists()}
       </StyledArtists>
-    </div>
+    </StyledApp>
   );
 }
+
+const StyledApp = styled.div`
+  background-color: lightblue;
+`;
 
 const StyledArtists = styled.div`
       display: flex;

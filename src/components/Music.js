@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import MusicPlayer from './MusicPlayer';
 
 const Music = () => {
     return (
         <StyledMusic>
-            <h1>Music</h1>
+            <MusicPlayer/>
         </StyledMusic>
     )
 }
